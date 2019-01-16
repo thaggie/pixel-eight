@@ -1,10 +1,16 @@
 {
-  "name": "@thaggie/pixel-8",
+  "name": "pixel-eight",
   "version": "0.0.1",
   "description": "A library inspired by the pico-8 API for writing games for the Kano Pixel",
   "main": "./index.js",
+  "files": [
+    "index.js",
+    "community-sdk/communitysdk.js",
+    "community-sdk/src"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./example.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +27,14 @@
   "bugs": {
     "url": "https://github.com/thaggie/pixel-8/issues"
   },
-  "homepage": "https://github.com/thaggie/pixel-8#readme"
+  "homepage": "https://github.com/thaggie/pixel-8#readme",
+  "dependencies": {
+    "serialport": "^6.2.2",
+    "uuid": "^3.3.2",
+    "ws": "^6.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9",
+    "prettier": "^1.15.3"
+  }
 }

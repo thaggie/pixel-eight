@@ -1,0 +1,4 @@
+[submodule "community-sdk"]
+	path = community-sdk
+	url = git@github.com:KanoComputing/community-sdk.git
+	branch = nodejs
