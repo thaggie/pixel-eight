@@ -9,7 +9,7 @@ A library inspired by the [pico-8][pico-8] API for writing games for the
 
 You can setup a pixel-8 project thus:
 
-```
+```sh
 mkdir demo
 cd demo
 npm init -y
@@ -18,7 +18,7 @@ yarn add pixel-eight
 
 ### Example Program
 
-```
+```js
 const { start } = require("pixel-eight");
 
 start({
@@ -51,14 +51,14 @@ start({
 
 If you put the above script in a `example.js` file, you can then run it:
 
-```
+```sh
 node ./example.js
 ```
 
 If you install [nodemon](nodemon) it makes for a good development environment
 as it'll restart each time you hit save.
 
-```
+```sh
 yarn add -D nodemon
 ./node_modules/.bin/nodemon ./example.js
 ```
