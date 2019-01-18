@@ -11,40 +11,31 @@ const parseColor = color => {
   return rgb565;
 };
 
-const black = parseColor("#000000");
-const darkblue = parseColor("#444477");
-const purple = parseColor("#784470");
-const darkgreen = parseColor("#446644");
-const brown = parseColor("#774433");
-const darkgrey = parseColor("#808080");
-const lightgrey = parseColor("#aaaaaa");
-const white = parseColor("#cccccc");
-const red = parseColor("#880000");
-const orange = parseColor("#cca500");
-const yellow = parseColor("#bbbb00");
-const green = parseColor("#00aa00");
-const lightblue = parseColor("#7777cc");
-const bluegrey = parseColor("#8080aa");
-const pink = parseColor("#ccaaaa");
-const beige = parseColor("#bbaaaa");
+const colorMap = {
+  black: parseColor("#000000"),
+  darkblue: parseColor("#444477"),
+  purple: parseColor("#784470"),
+  darkgreen: parseColor("#446644"),
+  brown: parseColor("#774433"),
+  darkgrey: parseColor("#808080"),
+  lightgrey: parseColor("#aaaaaa"),
+  white: parseColor("#cccccc"),
+  red: parseColor("#880000"),
+  orange: parseColor("#cca500"),
+  yellow: parseColor("#bbbb00"),
+  green: parseColor("#00aa00"),
+  lightblue: parseColor("#7777cc"),
+  bluegrey: parseColor("#8080aa"),
+  pink: parseColor("#ccaaaa"),
+  beige: parseColor("#bbaaaa")
+};
 
-const palette = [
-  black,
-  darkblue,
-  purple.darkgreen,
-  brown,
-  darkgrey,
-  lightgrey,
-  white,
-  red,
-  orange,
-  yellow,
-  green,
-  lightblue,
-  bluegrey,
-  pink,
-  beige
-];
+const color = Object.keys(colorMap).reduce((agg, color, index) => {
+  agg[color] = index;
+  return agg;
+}, {});
+
+const palette = Object.values(colorMap);
 
 class Frame {
   constructor() {
@@ -54,6 +45,10 @@ class Frame {
 
   pset(x, y, color) {
     this.buffer.writeUInt16BE(this.palette[color], (16 * y + x) * 2);
+  }
+
+  cls(color = 0) {
+    this.buffer.fill(color);
   }
 
   rect(x1, y1, x2, y2, color) {
@@ -72,6 +67,16 @@ class Frame {
   }
 }
 
+const createButtons = () => ({
+  left: false,
+  right: false,
+  up: false,
+  down: false,
+  a: false,
+  b: false,
+  j: false
+});
+
 const start = ({ init, update, draw, frameRate = 100 }) => {
   return new Promise((resolve, reject) => {
     DeviceManager.listConnectedDevices().then(devices => {
@@ -81,16 +86,8 @@ const start = ({ init, update, draw, frameRate = 100 }) => {
       if (!rpk) {
         reject(new Error("No Pixel Kit was found :("));
       } else {
-        const buttons = {
-          left: false,
-          right: false,
-          up: false,
-          down: false,
-          a: false,
-          b: false,
-          j: false
-        };
-
+        const pressed = createButtons();
+        let clicked = createButtons();
         const buttonMap = {
           "js-left": "left",
           "js-right": "right",
@@ -103,30 +100,33 @@ const start = ({ init, update, draw, frameRate = 100 }) => {
 
         rpk.on("button-down", buttonId => {
           const button = buttonMap[buttonId];
-          buttons[button] = true;
+          pressed[button] = true;
+          clicked[button] = true;
         });
 
         rpk.on("button-up", buttonId => {
           const button = buttonMap[buttonId];
-          buttons[button] = false;
+          pressed[button] = false;
         });
 
         let state = init ? init() : {};
         let ticks = 0;
+        let frame = new Frame();
         setInterval(() => {
           ticks += 1;
           if (update) {
-            state = update(state, buttons, ticks);
+            state = update(state, { pressed, clicked }, ticks);
           }
-          const frame = new Frame();
+
           if (draw) {
             draw(frame, state);
           }
           rpk.rpcRequest("lightboard:on", [{ map: frame.toString() }]);
+          clicked = createButtons();
         }, frameRate);
       }
     });
   });
 };
 
-module.exports = { start };
+module.exports = { start, color };
