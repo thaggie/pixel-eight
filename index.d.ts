@@ -38,13 +38,32 @@ declare module "pixel-eight" {
 
   export const colors: Colors;
 
+  export interface Map {
+    /** The width of the map */
+    width: number;
+
+    /** The height of the map */
+    height: number;
+
+    /** Set a pixel in the map to the color */
+    pset(x, y, color: number): undefined;
+
+    /** Get the color of a pixel in the map */
+    pget(x, y): number;
+  }
+
   /** The Frame represents the screen of the pixel */
   export interface Frame {
     /** Color a single pixel at the point (x,y) with the color c  */
     pset(x: number, y: number, color: number): undefined;
 
+    /** Draw a map to the screen offseting into it using the x / y  */
+    mset(x: number, y: number, map: Map): undefined;
+
     /** Clear the screen (color black if unspecified) */
     cls(color?: number): undefined;
+
+    /** Draw a rectangle on the screen */
     rect(
       x1: number,
       y1: number,
@@ -69,5 +88,9 @@ declare module "pixel-eight" {
     frameRate?: number;
   }
 
+  /** Create a map from an array of strings of hex colors */
+  export function createMap(hexMap: string[]): Map;
+
+  /** Start the game running */
   export function start(game: Game): undefined;
 }

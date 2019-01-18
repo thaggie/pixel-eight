@@ -37,6 +37,29 @@ const color = Object.keys(colorMap).reduce((agg, color, index) => {
 
 const palette = Object.values(colorMap);
 
+class Map {
+  constructor(hexMap) {
+    this.rows = hexMap.map(line => {
+      const numbers = [];
+      for (let x = 0; x < line.length; ++x) {
+        numbers.push(parseInt(line[x], 16));
+      }
+      return numbers;
+    });
+
+    this.height = hexMap.length;
+    this.width = hexMap[0].length;
+  }
+
+  pset(x, y, color) {
+    this.rows[y][x] = color;
+  }
+
+  pget(x, y) {
+    return this.rows[y][x];
+  }
+}
+
 class Frame {
   constructor() {
     this.buffer = Buffer.alloc(128 * 2, 0);
@@ -45,6 +68,15 @@ class Frame {
 
   pset(x, y, color) {
     this.buffer.writeUInt16BE(this.palette[color], (16 * y + x) * 2);
+  }
+
+  mset(x, y, map) {
+    for (let my = 0; my < 8; ++my) {
+      const row = map.rows[my + y];
+      for (let mx = 0; mx < 16; ++mx) {
+        this.pset(mx, my, row[mx + x]);
+      }
+    }
   }
 
   cls(color = 0) {
@@ -129,4 +161,6 @@ const start = ({ init, update, draw, frameRate = 100 }) => {
   });
 };
 
-module.exports = { start, color };
+const createMap = hexMap => new Map(hexMap);
+
+module.exports = { start, color, createMap };

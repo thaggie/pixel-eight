@@ -1,5 +1,10 @@
 # Pixel 8 Changes
 
+# 0.0.3
+
+- Added `createMap` to create a map from an array of hex strings
+- Added `mset` to draw a map to the frame
+
 # 0.0.2
 
 - Changed the frame to be constant betweeen ticks

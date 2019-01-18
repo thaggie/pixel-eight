@@ -1,6 +1,6 @@
 {
   "name": "pixel-eight",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A library inspired by the pico-8 API for writing games for the Kano Pixel",
   "main": "./index.js",
   "types": "./index.d.ts",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "github:thaggie/pixel-8.git"
+    "url": "github:thaggie/pixel-eight.git"
   },
   "keywords": [
     "kano",
@@ -27,9 +27,9 @@
   "author": "Tom Haggie",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/thaggie/pixel-8/issues"
+    "url": "https://github.com/thaggie/pixel-eight/issues"
   },
-  "homepage": "https://github.com/thaggie/pixel-8#readme",
+  "homepage": "https://github.com/thaggie/pixel-eight#readme",
   "dependencies": {
     "serialport": "^6.2.2",
     "uuid": "^3.3.2",
