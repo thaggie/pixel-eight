@@ -42,7 +42,7 @@ class Map {
     this.rows = hexMap.map(line => {
       const numbers = [];
       for (let x = 0; x < line.length; ++x) {
-        numbers.push(parseInt(line[x], 16));
+        numbers.push(parseInt(line[x], 16) || 0);
       }
       return numbers;
     });
@@ -70,13 +70,28 @@ class Frame {
     this.buffer.writeUInt16BE(this.palette[color], (16 * y + x) * 2);
   }
 
-  mset(x, y, map) {
+  mset(x, y, map, transparent) {
     for (let my = 0; my < 8; ++my) {
       const row = map.rows[my + y];
       for (let mx = 0; mx < 16; ++mx) {
-        this.pset(mx, my, row[mx + x]);
+        const color = row[mx + x];
+        if (color !== transparent) {
+          this.pset(mx, my, color);
+        }
       }
     }
+  }
+
+  bset(bitmap, transparentHex) {
+    const transparent =
+      typeof transparentHex === "string"
+        ? parseColor(transparentHex)
+        : undefined;
+    bitmap.map(parseColor).forEach((color, index) => {
+      if (color !== transparent) {
+        this.buffer.writeUInt16BE(color, index * 2);
+      }
+    });
   }
 
   cls(color = 0) {

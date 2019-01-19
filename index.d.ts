@@ -58,7 +58,10 @@ declare module "pixel-eight" {
     pset(x: number, y: number, color: number): undefined;
 
     /** Draw a map to the screen offseting into it using the x / y  */
-    mset(x: number, y: number, map: Map): undefined;
+    mset(x: number, y: number, map: Map, transparent?: number): undefined;
+
+    /** Draw a bitmap from an exported animation */
+    bset(bitmap: string[], transparent?: string);
 
     /** Clear the screen (color black if unspecified) */
     cls(color?: number): undefined;

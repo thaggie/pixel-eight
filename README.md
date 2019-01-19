@@ -21,12 +21,14 @@ yarn add pixel-eight
 ```js
 const { color, createMap, start } = require("pixel-eight");
 
+const { bitmaps } = require("./exported-animation.json");
+
 const map = createMap([
   "cccccccccccccccc",
   "c              c",
   "c              c",
-  "c    56789     c",
-  "c    abcde     c",
+  "c              c",
+  "c              c",
   "c              c",
   "c              c",
   "cccccccccccccccc"
@@ -54,8 +56,9 @@ start({
   },
 
   draw: (frame, { x, y }) => {
-    frame.mset(0, 0, map);
-    frame.rect(3, 1, 12, 7, color.pink);
+    frame.bset(bitmaps[0]);
+    frame.mset(0, 0, map, 0);
+    frame.rect(1, 1, 15, 7, color.pink);
     frame.pset(x, y, color.red);
   }
 });

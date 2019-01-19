@@ -1,5 +1,10 @@
 # Pixel 8 Changes
 
+# 0.0.4
+
+- Added `bset` to the frame to draw a bitmap loaded from an exported animation
+- Updated `mset` to optionally take a transparent parameter to mark a color as transparent
+
 # 0.0.3
 
 - Added `createMap` to create a map from an array of hex strings
