@@ -1,5 +1,9 @@
 # Pixel 8 Changes
 
+# 0.0.6
+
+- Fixed issue with previous release where it was missing a file
+
 # 0.0.5
 
 - Added `print` to write text to the screen
