@@ -38,7 +38,10 @@ start({
   draw: (frame, { x, y }) => {
     frame.bset(bitmaps[0]);
     frame.mset(0, 0, map, 0);
-    frame.rect(1, 1, 15, 7, color.pink);
+    frame.rect(6, 1, 15, 7, color.pink);
+    frame.fill(1, 1, 6, 7);
     frame.pset(x, y, color.red);
+
+    frame.print("p", 2, 2, 7);
   }
 });

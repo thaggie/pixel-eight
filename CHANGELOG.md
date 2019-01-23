@@ -1,5 +1,10 @@
 # Pixel 8 Changes
 
+# 0.0.5
+
+- Added `print` to write text to the screen
+- Added `fill` to fill in a rectangle with black or a specified color
+
 # 0.0.4
 
 - Added `bset` to the frame to draw a bitmap loaded from an exported animation

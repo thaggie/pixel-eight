@@ -161,7 +161,7 @@ const _6 = [
 ];
 
 // prettier-ignore
-const _6 = [
+const _7 = [
     '***',
     '  *',
     '  *',
@@ -224,7 +224,7 @@ const equals = [
     ];
 
 // prettier-ignore
-const lessThan = [
+const greaterThan = [
     '*  ',
     ' * ',
     '  *',
@@ -260,7 +260,7 @@ const a = [
     ];
 
 // prettier-ignore
-const d = [
+const b = [
     '***',
     '* *',
     '** ',
@@ -269,7 +269,7 @@ const d = [
     ];
 
 // prettier-ignore
-const d = [
+const c = [
     ' **',
     '*  ',
     '*  ',
@@ -416,7 +416,7 @@ const r = [
 const s = [
     ' **',
     '*  ',
-    '* *',
+    '***',
     '  *',
     '** ',
     ];
@@ -494,7 +494,7 @@ const openBracket = [
     ];
 
 // prettier-ignore
-const openBracket = [
+const backSlash = [
     '*  ',
     '*  ',
     ' * ',
@@ -564,3 +564,124 @@ const closeCurl = [
     ' * ',
     '*  ',
     ];
+
+var hash = space;
+var dollar = space;
+var percent = space;
+var ampersand = space;
+var star = space;
+var tilde = space;
+
+var charactersByCode = [
+  space,
+  exclamation,
+  doubleQuote,
+  hash,
+  dollar,
+  percent,
+  ampersand,
+  singleQuote,
+  openParen,
+  closeParen,
+  star,
+  plus,
+  comma,
+  minus,
+  period,
+  forwardSlash,
+  _0,
+  _1,
+  _2,
+  _3,
+  _4,
+  _5,
+  _6,
+  _7,
+  _8,
+  _9,
+  colon,
+  semiColon,
+  lessThan,
+  equals,
+  greaterThan,
+  questionMark,
+  at,
+  a,
+  b,
+  c,
+  d,
+  e,
+  f,
+  g,
+  h,
+  i,
+  j,
+  k,
+  l,
+  m,
+  n,
+  o,
+  p,
+  q,
+  r,
+  s,
+  t,
+  u,
+  v,
+  w,
+  x,
+  y,
+  z,
+  openBracket,
+  backSlash,
+  closeBracket,
+  hat,
+  underscore,
+  tick,
+  a,
+  b,
+  c,
+  d,
+  e,
+  f,
+  g,
+  h,
+  i,
+  j,
+  k,
+  l,
+  m,
+  n,
+  o,
+  p,
+  q,
+  r,
+  s,
+  t,
+  u,
+  v,
+  w,
+  x,
+  y,
+  z,
+  openCurl,
+  pipe,
+  closeCurl,
+  tilde
+];
+
+const characters = text => {
+  var result = [];
+  for (var index = 0; index < text.length; ++index) {
+    var code = text.charCodeAt(index) - 32;
+    if (code >= 0 && code < charactersByCode.length) {
+      var character = charactersByCode[code];
+      result.push(character);
+    } else {
+      result.push(space);
+    }
+  }
+  return result;
+};
+
+module.exports = { characters };

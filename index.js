@@ -1,6 +1,8 @@
 const DeviceManager = require("./community-sdk/communitysdk").DeviceManager;
 const PixelKit = require("./community-sdk/communitysdk").RetailPixelKit;
 
+const { characters } = require("./font");
+
 const parseColor = color => {
   const rgb888 = parseInt(color.substring(1, 7), 16);
   //                blue                 green                  red
@@ -52,11 +54,21 @@ class Map {
   }
 
   pset(x, y, color) {
-    this.rows[y][x] = color;
+    if (y >= 0 && y < this.rows.length) {
+      const row = this.rows[y];
+      if (x >= 0 && x < rows.length) {
+        row[x] = color;
+      }
+    }
   }
 
   pget(x, y) {
-    return this.rows[y][x];
+    if (y >= 0 && y < this.rows.length) {
+      const row = this.rows[y];
+      if (x >= 0 && x < row.length) {
+        return row[x];
+      }
+    }
   }
 }
 
@@ -67,7 +79,9 @@ class Frame {
   }
 
   pset(x, y, color) {
-    this.buffer.writeUInt16BE(this.palette[color], (16 * y + x) * 2);
+    if (x >= 0 && x < 16 && y >= 0 && y < 8) {
+      this.buffer.writeUInt16BE(this.palette[color], (16 * y + x) * 2);
+    }
   }
 
   mset(x, y, map, transparent) {
@@ -80,6 +94,19 @@ class Frame {
         }
       }
     }
+  }
+
+  print(text, x = 0, y = 0, color = 7) {
+    const characterBitmaps = characters(text);
+    characterBitmaps.forEach((character, ci) => {
+      character.forEach((line, li) => {
+        for (let i = 0; i < 3; ++i) {
+          if (line[i] === "*") {
+            this.pset(ci * 4 + x + i, y + li, color);
+          }
+        }
+      });
+    });
   }
 
   bset(bitmap, transparentHex) {
@@ -106,6 +133,14 @@ class Frame {
     for (let y = y1; y < y2; ++y) {
       this.pset(x1, y, color);
       this.pset(x2 - 1, y, color);
+    }
+  }
+
+  fill(x1, y1, x2, y2, color = 0) {
+    for (let x = x1; x < x2; ++x) {
+      for (let y = y1; y < y2; ++y) {
+        this.pset(x, y, color);
+      }
     }
   }
 

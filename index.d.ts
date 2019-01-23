@@ -74,6 +74,18 @@ declare module "pixel-eight" {
       y2: number,
       color: number
     ): undefined;
+
+    /** Fill in a rectangle on the screen (defaults to black) */
+    fill(
+      x1: number,
+      y1: number,
+      x2: number,
+      y2: number,
+      color?: number
+    ): undefined;
+
+    /** Write text to the screen at the given co-ordinates */
+    print(text: string, x?: number, y?: number, color?: number);
   }
 
   /** Interface for specifying a game */
