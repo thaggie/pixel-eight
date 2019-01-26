@@ -122,7 +122,7 @@ class Frame {
   }
 
   cls(color = 0) {
-    this.buffer.fill(color);
+    this.fill(0, 0, 16, 8, color);
   }
 
   rect(x1, y1, x2, y2, color) {

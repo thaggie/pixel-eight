@@ -1,5 +1,9 @@
 # Pixel 8 Changes
 
+# 0.0.7
+
+- Fixed issue with `cls`, it now uses `fill` so that the colors are correct
+
 # 0.0.6
 
 - Fixed issue with previous release where it was missing a file

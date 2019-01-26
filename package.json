@@ -1,6 +1,6 @@
 {
   "name": "pixel-eight",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A library inspired by the pico-8 API for writing games for the Kano Pixel",
   "main": "./index.js",
   "types": "./index.d.ts",
